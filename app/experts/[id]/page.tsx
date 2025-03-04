@@ -71,10 +71,72 @@ const experts = {
       },
     ],
   },
+  2: {
+    id: 1,
+    name: "Dr. Sarah Chen",
+    title: "AI Research Scientist",
+    category: "Tech & AI",
+    rating: 4.9,
+    reviews: 124,
+    hourlyRate: 150,
+    image: "/placeholder.svg?height=200&width=200",
+    specialties: ["Machine Learning", "NLP", "AI Ethics", "Computer Vision", "Data Science"],
+    bio: "Dr. Sarah Chen is an AI Research Scientist with over 10 years of experience in machine learning and natural language processing. She has worked at leading tech companies and research institutions, contributing to cutting-edge AI projects and publishing numerous papers in top-tier conferences. Sarah is passionate about mentoring the next generation of AI practitioners and helping companies implement ethical AI solutions.",
+    experience: [
+      {
+        company: "TechGiant AI",
+        role: "Senior Research Scientist",
+        period: "2018 - Present",
+      },
+      {
+        company: "AI Research Institute",
+        role: "Research Fellow",
+        period: "2015 - 2018",
+      },
+      {
+        company: "University of Technology",
+        role: "Assistant Professor",
+        period: "2012 - 2015",
+      },
+    ],
+    education: [
+      {
+        institution: "Stanford University",
+        degree: "Ph.D. in Computer Science, AI Specialization",
+        year: "2012",
+      },
+      {
+        institution: "MIT",
+        degree: "M.S. in Computer Science",
+        year: "2008",
+      },
+    ],
+    sessionTypes: [
+      {
+        type: "1:1 Consultation",
+        duration: "60 min",
+        price: 150,
+        description: "Personalized guidance on AI implementation, career advice, or specific technical challenges.",
+      },
+      {
+        type: "Code Review",
+        duration: "45 min",
+        price: 120,
+        description: "Detailed review of your ML/AI code with optimization suggestions and best practices.",
+      },
+      {
+        type: "Project Planning",
+        duration: "90 min",
+        price: 220,
+        description:
+          "Strategic planning for AI projects, including architecture, data requirements, and implementation roadmap.",
+      },
+    ],
+  }
 }
 
 export default function ExpertProfilePage({ params }: { params: { id: string } }) {
-  const expert = experts[params.id as keyof typeof experts]
+  const expert = experts[params.id as unknown as keyof typeof experts]
 
   if (!expert) {
     return <div className="container py-10">Expert not found</div>
