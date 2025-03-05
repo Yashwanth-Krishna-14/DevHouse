@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { CheckCircle, DollarSign, Calendar, Users } from "lucide-react"
 import Image from "next/image"
 import BecomeExpertForm from "@/components/become-expert-form"
+import Link from 'next/link';
 
 export default function BecomeExpertPage() {
   return (
@@ -23,11 +24,10 @@ export default function BecomeExpertPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Button size="lg">Apply Now</Button>
-                <Button size="lg" variant="outline">
-                  Learn More
-                </Button>
+               {/*  <Button size="lg">Apply Now</Button> */}
+               
               </div>
+                
             </div>
             <div className="flex items-center justify-center">
               <div className="relative w-full max-w-[500px] aspect-video overflow-hidden rounded-xl">

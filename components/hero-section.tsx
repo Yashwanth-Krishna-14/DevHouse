@@ -19,10 +19,10 @@ export default function HeroSection() {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Button size="lg" asChild>
-                <Link href="/experts">Find an Expert</Link>
+                <Link href="/experts">Find a Mentor</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/become-expert">Become an Expert</Link>
+                <Link href="/become-expert">Become a Mentor</Link>
               </Button>
             </div>
             <div className="flex items-center space-x-4 text-sm">

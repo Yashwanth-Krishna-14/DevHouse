@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
@@ -8,7 +10,7 @@ import Link from "next/link"
 import ExpertFilters from "@/components/expert-filters"
 
 // Sample expert data
-const experts = [
+export const experts = [
   {
     id: 1,
     name: "Dr. Sarah Chen",
@@ -78,6 +80,41 @@ const experts = [
 ]
 
 export default function ExpertsPage() {
+  const [filteredExperts, setFilteredExperts] = useState(experts)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [showFilters, setShowFilters] = useState(false)
+  const [sortOption, setSortOption] = useState("")
+
+  const handleApplyFilters = (filtered) => {
+    setFilteredExperts(filtered)
+  }
+
+  const handleSearch = (event) => {
+    const query = event.target.value.toLowerCase()
+    setSearchQuery(query)
+    const filtered = experts.filter((expert) =>
+      expert.name.toLowerCase().includes(query) ||
+      expert.title.toLowerCase().includes(query) ||
+      expert.specialties.some((specialty) => specialty.toLowerCase().includes(query))
+    )
+    setFilteredExperts(filtered)
+  }
+
+  const handleSort = (option) => {
+    setSortOption(option)
+    const sorted = [...filteredExperts].sort((a, b) => {
+      if (option === "rating") {
+        return b.rating - a.rating
+      } else if (option === "reviews") {
+        return b.reviews - a.reviews
+      } else if (option === "hourlyRate") {
+        return b.hourlyRate - a.hourlyRate
+      }
+      return 0
+    })
+    setFilteredExperts(sorted)
+  }
+
   return (
     <div className="container py-10">
       <div className="flex flex-col space-y-6">
@@ -91,77 +128,90 @@ export default function ExpertsPage() {
         <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
           <div className="relative flex-1">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input type="search" placeholder="Search by name, expertise, or keywords..." className="pl-8" />
+            <Input
+              type="search"
+              placeholder="Search by name, expertise, or keywords..."
+              className="pl-8"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
           </div>
-          <Button variant="outline" className="flex items-center gap-2">
+          <Button variant="outline" className="flex items-center gap-2" onClick={() => setShowFilters(!showFilters)}>
             <Filter className="h-4 w-4" />
             <span>Filters</span>
           </Button>
-          <Button variant="outline" className="flex items-center gap-2">
+          <Button variant="outline" className="flex items-center gap-2" onClick={() => handleSort("rating")}>
             <Sliders className="h-4 w-4" />
-            <span>Sort</span>
+            <span>Sort by Rating</span>
+          </Button>
+          <Button variant="outline" className="flex items-center gap-2" onClick={() => handleSort("reviews")}>
+            <Sliders className="h-4 w-4" />
+            <span>Sort by Reviews</span>
+          </Button>
+          <Button variant="outline" className="flex items-center gap-2" onClick={() => handleSort("hourlyRate")}>
+            <Sliders className="h-4 w-4" />
+            <span>Sort by Hourly Rate</span>
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
-          <div className="hidden lg:block">
-            <ExpertFilters />
+        {showFilters && (
+          <div className="lg:block">
+            <ExpertFilters onApplyFilters={handleApplyFilters} />
           </div>
+        )}
 
-          <div className="lg:col-span-3">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {experts.map((expert) => (
-                <Card key={expert.id} className="expert-card transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-4">
-                        <Avatar className="h-12 w-12">
-                          <AvatarImage src={expert.image} alt={expert.name} />
-                          <AvatarFallback>
-                            {expert.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <h3 className="font-semibold">{expert.name}</h3>
-                          <p className="text-sm text-muted-foreground">{expert.title}</p>
-                        </div>
-                      </div>
-                      <Badge variant="outline">{expert.category}</Badge>
-                    </div>
-                    <div className="mt-4">
-                      <div className="flex items-center space-x-1">
-                        <StarIcon className="h-4 w-4 fill-primary text-primary" />
-                        <span className="font-medium">{expert.rating}</span>
-                        <span className="text-muted-foreground text-sm">({expert.reviews} reviews)</span>
-                      </div>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {expert.specialties.map((specialty) => (
-                          <Badge key={specialty} variant="secondary" className="text-xs">
-                            {specialty}
-                          </Badge>
-                        ))}
+        <div className="lg:col-span-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filteredExperts.map((expert) => (
+              <Card key={expert.id} className="expert-card transition-all duration-300">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center space-x-4">
+                      <Avatar className="h-12 w-12">
+                        <AvatarImage src={expert.image} alt={expert.name} />
+                        <AvatarFallback>
+                          {expert.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <h3 className="font-semibold">{expert.name}</h3>
+                        <p className="text-sm text-muted-foreground">{expert.title}</p>
                       </div>
                     </div>
-                    <div className="mt-4 text-sm">
-                      <span className="font-semibold">${expert.hourlyRate}</span>
-                      <span className="text-muted-foreground"> / hour</span>
+                    <Badge variant="outline">{expert.category}</Badge>
+                  </div>
+                  <div className="mt-4">
+                    <div className="flex items-center space-x-1">
+                      <StarIcon className="h-4 w-4 fill-primary text-primary" />
+                      <span className="font-medium">{expert.rating}</span>
+                      <span className="text-muted-foreground text-sm">({expert.reviews} reviews)</span>
                     </div>
-                  </CardContent>
-                  <CardFooter className="px-6 pb-6 pt-0">
-                    <Button className="w-full" asChild>
-                      <Link href={`/experts/${expert.id}`}>View Profile</Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {expert.specialties.map((specialty) => (
+                        <Badge key={specialty} variant="secondary" className="text-xs">
+                          {specialty}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-4 text-sm">
+                    <span className="font-semibold">${expert.hourlyRate}</span>
+                    <span className="text-muted-foreground"> / hour</span>
+                  </div>
+                </CardContent>
+                <CardFooter className="px-6 pb-6 pt-0">
+                  <Button className="w-full" asChild>
+                    <Link href={`/experts/${expert.id}`}>View Profile</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
           </div>
         </div>
       </div>
     </div>
   )
 }
-

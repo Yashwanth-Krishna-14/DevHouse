@@ -105,7 +105,7 @@ export default function ExpertHighlights() {
         </div>
         <div className="flex justify-center mt-10">
           <Button variant="outline" size="lg" asChild>
-            <Link href="/experts">View All Experts</Link>
+            <Link href="/experts">View All Mentors</Link>
           </Button>
         </div>
       </div>

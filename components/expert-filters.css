@@ -1,0 +1,17 @@
+.filter-container {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .filter-container .AccordionContent {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .filter-container .Checkbox {
+    flex-shrink: 0;
+  }
+  
+  .filter-container .Label {
+    flex-grow: 1;
+  }

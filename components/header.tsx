@@ -26,7 +26,7 @@ export default function Header() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="font-bold text-xl">ExpertConnect</span>
+            <span className="font-bold text-xl">Mentinator</span>
           </Link>
           <NavigationMenu>
             <NavigationMenuList>
@@ -40,7 +40,7 @@ export default function Header() {
                           className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                           href="/experts"
                         >
-                          <div className="mb-2 mt-4 text-lg font-medium">Browse All Experts</div>
+                          <div className="mb-2 mt-4 text-lg font-medium">Browse All Mentors</div>
                           <p className="text-sm leading-tight text-muted-foreground">
                             Discover top consultants across all fields
                           </p>

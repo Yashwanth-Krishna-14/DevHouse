@@ -8,7 +8,7 @@ import ExpertAvailability from "@/components/expert-availability"
 import ExpertReviews from "@/components/expert-reviews"
 
 // Sample expert data
-const experts = {
+ const experts = {
   1: {
     id: 1,
     name: "Dr. Sarah Chen",

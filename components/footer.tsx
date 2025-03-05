@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container py-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
           <div className="space-y-3">
-            <h3 className="text-lg font-bold">ExpertConnect</h3>
+            <h3 className="text-lg font-bold">Mentinator</h3>
             <p className="text-sm text-muted-foreground">
               Connect with top experts in Tech & AI Mentorship, Startup & Business Consulting, and Career Coaching.
             </p>
@@ -18,7 +18,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/experts" className="text-muted-foreground hover:text-foreground">
-                  Find Experts
+                  Find Mentors
                 </Link>
               </li>
               <li>
@@ -28,7 +28,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/become-expert" className="text-muted-foreground hover:text-foreground">
-                  Become an Expert
+                  Become a Mentor
                 </Link>
               </li>
               <li>
@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t pt-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} ExpertConnect. All rights reserved.
+            © {new Date().getFullYear()} Mentinator. All rights reserved.
           </p>
         </div>
       </div>
